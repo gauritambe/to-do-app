@@ -184,5 +184,88 @@ def delete_task(event):
             'body': json.dumps({'error': e.response['Error']['Message']})
         }
 ```
-       
-     
+   - Deploy
+   - Test --> Event Name: Test
+        - Template: apiGateway-aws-proxy
+        - In json code mention TaskID = 101 (below query string) --> Save --> Test
+
+3. Search API Gateway:
+   - API Name: TaskManagerAPI
+   - Create API
+   - Create Methods: 
+        - Method Type: Get
+        - Lambda Function: Attaach to the function we just created
+        - URL Query String parameters --> Name: TaskID (tick Required)
+   - Create method
+   - Integration request --> Edit --> Mapping Template --> Content type: application/json
+   - Json code:
+``` bash
+{
+    "httpMethod": "$context.httpMethod",
+    "queryStringParameters": {
+        #foreach($param in $input.params().querystring.keySet())
+            "$param": "$util.escapeJavaScript($input.params().querystring.get($param))"
+            #if($foreach.hasNext),#end
+        #end
+    }
+}
+```
+   - Create Methods: 
+           - Method Type: Delete
+           - Lambda Function: Attaach to the function we just created
+           - URL Query String parameters --> Name: TaskID (tick Required)
+      - Create method
+      - Integration request --> Edit --> Mapping Template --> Content type: application/json
+      - Json code:
+   ``` bash
+   {
+       "httpMethod": "$context.httpMethod",
+       "queryStringParameters": {
+           #foreach($param in $input.params().querystring.keySet())
+               "$param": "$util.escapeJavaScript($input.params().querystring.get($param))"
+               #if($foreach.hasNext),#end
+           #end
+       }
+   }
+   ```
+
+   - Create Methods: 
+           - Method Type: Put
+           - Lambda Function: Attaach to the function we just created
+           - URL Query String parameters --> Name: TaskID (tick Required)
+      - Create method
+      - Integration request --> Edit --> Mapping Template --> Content type: application/json
+      - Json code:
+   ``` bash
+   {
+    "httpMethod": "$context.httpMethod",
+    "body": $input.body
+}
+   ```
+   - Create Methods: 
+           - Method Type: POST
+           - Lambda Function: Attaach to the function we just created
+           - URL Query String parameters --> Name: TaskID (tick Required)
+      - Create method
+      - Integration request --> Edit --> Mapping Template --> Content type: application/json
+      - Json code:
+   ``` bash
+   {
+    "httpMethod": "$context.httpMethod",
+    "body": $input.body
+}
+   ``` 
+   - Enable CORS:
+        - Gateway response --> Default 5XX & 4XX
+        - Access-Control-Allow-Methods --> DELETE, GET, POST, PUT
+        - Save
+   - Deploy API:
+        - *New Stage*
+        - Stage Name: prod
+        - Deploy
+   - Copy Invoke url of prod
+
+4. S3 bucket:
+   - 
+
+           
