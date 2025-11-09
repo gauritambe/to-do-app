@@ -263,9 +263,44 @@ def delete_task(event):
         - *New Stage*
         - Stage Name: prod
         - Deploy
-   - Copy Invoke url of prod
+   - Copy Invoke url of prod ( And replace in script.js file )
 
 4. S3 bucket:
-   - 
+   - Create bucket
+   - Bucket Name: to-do-bucket-list
+   - Untick the Block Public Access
+   - Create bucket
+   - Goto your created bucket --> Properties --> Static website hosting --> Edit --> Enable
+   - Index Document: index.html
+   - Save Changes
+   - Permissions --> Bucket policy : (Edit)
+``` bash
+           {
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Effect": "Allow",
+                  "Principal": "*",
+                  "Action": "s3:GetObject",
+                  "Resource": "arn:aws:s3:::<your-bucket-name>/*"
+              }
+          ]
+      }
+```
+   - Save
+   - Goto Objects --> Upload files --> Add files (index.html, script.js, style.css) --> Upload
+   - Properties --> Bucket Endpoint URL (Copy the url)
+
+5. Final
+   - Open New tab in your browser and paste the endpoint url
+
+ Result:
+ <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ac9ca4d9-0784-41e9-be0d-e40909f6cfda" />
+
+- You will be able to see this website if the all the configuration is right.
+- You Can add task and delete the task as per TaskID.
+  
+
+   
 
            
