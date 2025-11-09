@@ -17,8 +17,10 @@
    - Create Table
 - Goto created Table Tasks:
    - Actions --> Create Items:
-                 - TaskID (PK) = 101
-                 - Add new attribute --> String --> TaskName = ITR Filling
+     
+                 a. TaskID (PK) = 101
+     
+                 b.  Add new attribute --> String --> TaskName = ITR Filling
                  - Add new attribute --> String --> TaskDescription = A normal todo list 
                  - Add new attribute --> String --> TaskStatus = Pending
                  - Create Item
