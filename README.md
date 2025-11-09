@@ -298,7 +298,7 @@ def delete_task(event):
  <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ac9ca4d9-0784-41e9-be0d-e40909f6cfda" />
 
 - You will be able to see this website if the all the configuration is right.
-- You Can add task and delete the task as per TaskID.
+- You can add task and delete the task as per TaskID.
   
 
    
